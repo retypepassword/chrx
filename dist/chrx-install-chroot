@@ -510,6 +510,9 @@ fedora_install_kernel()
 {
   echo "add_drivers+=\" mmc_core mmc_block sdhci sdhci_acpi \"" > /etc/dracut.conf.d/chrx.conf
   echo_title "Installing Linux kernel and boot environment."
+
+  # /etc/machine-id needs to be generated for systemd kernel installation scripts to work
+  systemd-machine-id-setup
   
   # install the release kernel
   dnf ${VERBOSITY_DNF} -y --disablerepo "updates" install kernel kernel-modules kernel-core linux-firmware
